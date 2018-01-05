@@ -1,13 +1,13 @@
 page-about {
-    // .home {
-    //     background: linear-gradient(to bottom,  #b3d5fc 0%, #fff 100%);
-    // }
+    .home {
+        background: linear-gradient(to bottom,  #b3d5fc 0%, #fff 100%);
+    }
 
-    // $SIDEMENU_TOP: #0c57f7;
-    // $SIDEMENU_BOTTOM: #fdfdfc;
-    // $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
+    $SIDEMENU_TOP: #0c57f7;
+    $SIDEMENU_BOTTOM: #fdfdfc;
+    $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 
-    // // .toolbar-background-md
+    // .toolbar-background-md
     // .toolbar-background-md {
     //     background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
     //     background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
