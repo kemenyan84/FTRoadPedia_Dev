@@ -1,23 +1,25 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu"  color="light"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
-  </ion-navbar>
+    <ion-title>Galeri Foto</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
-</ion-content>
+<ion-content class="bg">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 col-sm *ngFor="let image of imageList">
+          <div padding class="img" tappable [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
+  <ion-footer>
+      <ion-navbar color="danger">
+        <ion-title align="center">Cipta Detik Indah Bersama</ion-title>
+      </ion-navbar>
+  </ion-footer>
+  

@@ -8,6 +8,10 @@ import { ListPage } from '../pages/list/list';
 import { PoiPage } from '../pages/poi/poi';
 import { AboutPage } from '../pages/about/about';
 
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,17 +20,17 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public iab: InAppBrowser) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'POI', component: PoiPage},
-      { title: 'About', component: AboutPage}
+      { title: 'Home', component: HomePage, icon: 'home' },
+      { title: 'Place of Interest', component: PoiPage, icon: 'pin' },
+      { title: 'Galeri', component: ListPage, icon: 'images' },
+      // { title: 'About', component: AboutPage, icon: 'images'}
     ];
 
   }
@@ -44,5 +48,21 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  openFB(){
+    let options: InAppBrowserOptions = {
+    location: 'no',
+    zoom: 'no'
+  }
+  const browser = this.iab.create('https://m.facebook.com/FTRoadpedia/', '_self', options);
+}
+
+  openMengenaiPage(){
+    this.nav.setRoot(ListPage);
+  }
+
+  openAboutPage(){
+    this.nav.setRoot(AboutPage)
   }
 }

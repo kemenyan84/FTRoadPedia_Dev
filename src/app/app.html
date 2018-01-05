@@ -7,8 +7,15 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button icon-left menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
+      </button>
+      <button icon-left menuClose ion-item (click)="openFB()">
+      <ion-icon name="logo-facebook"></ion-icon>Facebook FTRoadpedia
+      </button>
+      <button icon-left menuClose ion-item (click)="openAboutPage()">
+      <ion-icon name="information-circle"></ion-icon>Mengenai FTRoadpedia
       </button>
     </ion-list>
   </ion-content>
