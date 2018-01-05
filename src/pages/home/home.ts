@@ -1,9 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Observable } from 'rxjs/Observable';
 
 
 declare var google: any;
+
 
 @Component({
   selector: 'page-home',
@@ -12,10 +14,14 @@ declare var google: any;
 export class HomePage {
 
   @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('searchbar', { read: ElementRef}) searchbar: ElementRef;
+  addressElement: HTMLInputElement = null;
+
   map: any;
   center: any;
   location: string;
   coords: string;
+  search: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
   }
 
@@ -31,12 +37,47 @@ export class HomePage {
      });
   }
 
+  initAutoComplete(): void {
+    this.addressElement = document.getElementById('txtHome').getElementsByTagName('input')[0];
+    this.createAutoComplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 20,
+      };
+      this.map.setOptions(options);
+      //this.createMarkerL();
+      //this.getDirection();
+    });
+  }
+
+  createAutoComplete(addressEL: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEL);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry){
+          sub.error({
+            message: 'Autocomplete with no geometry'
+          });
+        } else {
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+        }
+      });
+    });
+  }
+
+
   initMap(coords){
     let latitude = coords.latitude;
     let longitude = coords.longitude;
 
-    var nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
-    let autocomplete1 = new google.maps.places.Autocomplete(nativeHomeInputBox, location);
+    // var nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+    // let autocomplete1 = new google.maps.places.Autocomplete(nativeHomeInputBox, location);
 
     this.center = {
       lat: latitude,
@@ -57,6 +98,7 @@ export class HomePage {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
     //let lating = new /maps.Map(this.mapElement.nativeElement, )
     this.addMarker();
+    this.initAutoComplete();
   }
 
   addMarker(){
@@ -100,5 +142,14 @@ export class HomePage {
         }
       })
     }
+
+    // toggleSearch(){
+    //   if (this.search) {
+    //     this.search = false;
+    //   }else{
+    //     this.search = true;
+    //   }
+    // }
+  
 
 }

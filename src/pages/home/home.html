@@ -1,17 +1,26 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"   color="light"></ion-icon>
+      <ion-icon name="menu" color="light"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+    <ion-title>Laman Utama</ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button icon-only (click)='toggleSearch()'>
+        <ion-icon name="search" color="light"></ion-icon>
+      </button> -->
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+  <!-- <ion-searchbar #searchbar placeholder="Search" [hidden]="!search"></ion-searchbar> -->
+
   <ion-item>
       <ion-input id="txtHome" type="text" value="" placeholder="Pilih Destinasi" [(ngModel)]="location"></ion-input> 
       <button ion-button clear item-right icon-only (click)="getDirection()"><ion-icon name="search" item-end></ion-icon></button> 
   </ion-item>
+
 <div #map id="map"></div>
 <ion-fab right bottom>
   <button ion-fab color="danger" (click)="setCenter()"><ion-icon name="pin"></ion-icon></button>
