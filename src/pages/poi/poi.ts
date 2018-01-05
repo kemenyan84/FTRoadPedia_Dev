@@ -80,7 +80,7 @@ export class PoiPage {
       service.nearbySearch({
         location: latlng,
         radius: 2000,
-        types: ["mosque"],
+        types: ["mosque", "police", "shopping_mall"]
         //position: this.map.getCenter()
       }, (results, status) => {
         if(status === google.maps.places.PlacesServiceStatus.OK){
