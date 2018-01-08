@@ -21,7 +21,12 @@
 
 <ion-content>
 
-  <ion-searchbar #searchbar placeholder="Search" [hidden]="!search"></ion-searchbar>
+  <!-- <ion-searchbar #searchbar placeholder="Search" [hidden]="!search"></ion-searchbar> -->
+
+  <ion-item>
+    <ion-input id="txtHome" type="text" value="" placeholder="Pilih Destinasi" [(ngModel)]="location"></ion-input> 
+    <button ion-button clear item-right icon-only (click)="getDirection()"><ion-icon name="search" item-end></ion-icon></button> 
+  </ion-item>
 
   <!-- <ion-item>
     <ion-input type="text" value="" placeholder="Search direction" [(ngModel)]="location"></ion-input>

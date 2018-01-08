@@ -177,7 +177,8 @@ export class PoiPage {
 
   //autocomplete
   initAutoComplete(): void {
-    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.addressElement = document.getElementById('txtHome').getElementsByTagName('input')[0]
+    // this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
     this.createAutoComplete(this.addressElement).subscribe((location) => {
       console.log('Searchdata', location);
 
