@@ -63,6 +63,7 @@ export class PoiPage {
     
     //this.searchNearBy(latlng);
 
+    // tambah param, determine type of places
     this.searchNearBy(latlng).then(places => {
       for(let place of places){
         this.createMarker(place, this.map);
@@ -90,7 +91,8 @@ export class PoiPage {
 
     });
   }
-
+  
+  //tambah param icon
   createMarker(place: any, map: any){
     let placelocation = place.geometry.location;
     let marker = new google.maps.Marker ({
@@ -98,6 +100,7 @@ export class PoiPage {
       animation: google.maps.Animation.DROP,
       position: placelocation,
       icon: 'assets/imgs/marker02.png'
+      //
     });
 
     let infoWindow = new google.maps.InfoWindow();
@@ -152,7 +155,7 @@ export class PoiPage {
   }
 
 
-  getDirection(){
+  getDirection(location){
     let directionService = new google.maps.DirectionsService;
     let directionDisplay = new google.maps.DirectionsRenderer;
 
@@ -185,10 +188,14 @@ export class PoiPage {
       let options = {
         center: location,
         zoom: 20,
+        disableDefaultUI: true,
       };
       this.map.setOptions(options);
       //this.createMarkerL();
-      //this.getDirection();
+      
+      //pass location to getDirection()
+      this.location = location;
+      this.getDirection(location);
     });
   }
 
