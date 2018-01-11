@@ -11,6 +11,7 @@ import { AboutPage } from '../pages/about/about';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { WebserviceProvider } from '../providers/webservice/webservice';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     Geolocation,
     InAppBrowser,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WebserviceProvider
   ]
 })
 export class AppModule {}

@@ -8,13 +8,34 @@
 </ion-header>
 
 <ion-content class="bg">
-    <ion-grid>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col col-4 col-sm *ngFor="let image of imageList">
           <div padding class="img" tappable [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+  <ion-list>
+      <button  (click)="detailsPage(employee)" ion-item *ngFor="let employee of staffList">
+        <ion-thumbnail item-start>
+          <img [src]="employee.imageURL">
+        </ion-thumbnail>
+        <h2>{{employee.name}}</h2>
+        <p>{{employee.company}}</p>
+        <button ion-button clear item-end>View</button>
+      </button>
+    </ion-list>
+
+    <!-- <ul>
+      <li><a href="http://fotoweb.kkr.gov.my/fotoweb/Grid.fwx?archiveId=5006&position=1&search=#Preview1">Zon Utara</a></li>
+      <li>Zon Selatan</li>
+    </ul> -->
+
   </ion-content>
 
   <ion-footer>

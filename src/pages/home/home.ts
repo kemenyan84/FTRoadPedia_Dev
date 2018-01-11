@@ -47,6 +47,7 @@ export class HomePage {
         zoom: 20,
       };
       this.map.setOptions(options);
+      this.location=location;
       //this.createMarkerL();
       //this.getDirection();
     });
