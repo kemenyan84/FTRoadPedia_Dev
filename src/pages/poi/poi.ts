@@ -25,7 +25,7 @@ export class PoiPage {
 
   map: any;
   coords: string;
-  location: any;
+  location: string;
   search: boolean = false;
 
   constructor(public navCtrl: NavController, 
@@ -43,6 +43,73 @@ export class PoiPage {
       console.log('Error getting location', error);
     });
   }
+
+  //autocomplete
+  initAutoComplete(): void {
+    this.addressElement = document.getElementById('txtHome').getElementsByTagName('input')[0]
+    // this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutoComplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 20,
+        disableDefaultUI: true,
+      };
+      this.map.setOptions(options);
+      //this.createMarkerL();
+      
+      //pass location to getDirection()
+      this.location = location;
+      this.getDirection();
+    });
+  }
+
+  createAutoComplete(addressEL: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEL);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry){
+          sub.error({
+            message: 'Autocomplete with no geometry'
+          });
+        } else {
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+        }
+      });
+    });
+  }
+ 
+
+  getDirection(){
+    let directionService = new google.maps.DirectionsService;
+    let directionDisplay = new google.maps.DirectionsRenderer;
+
+    let map = new google.maps.Map(this.mapElement.nativeElement, {
+      zoom: 15,
+      center: this.map.getCenter()
+    });
+
+    directionDisplay.setMap(map);
+    directionService.route({
+      origin: this.coords,
+      destination: this.location,
+      travelMode: 'DRIVING',
+      avoidHighways: true,
+      avoidTolls: true
+    },(response, status) => {
+        if(status === 'OK'){
+          directionDisplay.setDirections(response);
+        } else {
+          alert('Directions Failed: ' + status)
+        }
+    })
+  }
+
 
   initMap(coords){
     let latitude = coords.latitude;
@@ -81,7 +148,8 @@ export class PoiPage {
       service.nearbySearch({
         location: latlng,
         radius: 2000,
-        types: ["mosque", "police", "shopping_mall"]
+        types: ["mosque"]
+        // types: ["mosque", "police", "shopping_mall"]
         //position: this.map.getCenter()
       }, (results, status) => {
         if(status === google.maps.places.PlacesServiceStatus.OK){
@@ -154,95 +222,32 @@ export class PoiPage {
     })
   }
 
+  
+  // mapsSearchBar(ev: any){
+  //   console.log(ev);
+  //   const autocomplete = new google.maps.places.Autocomplete(ev);
+  //   autocomplete.bindTo('bounds', this.map);
+  //   return new Observable((sub: any) => {
+  //     google.maps.event.addListener(autocomplete, 'place_changed', () => {
+  //       const place = autocomplete.getPlace();
+  //       if (!place.geometry) {
+  //         sub.error({
+  //           message: 'Autocomplete no geometry mapsearchbar'
+  //         });
+  //       } else {
+  //         sub.next(place.geometry.location);
+  //         sub.complete();
+  //       }
+  //     });
+  //   });
+  // }
 
-  getDirection(location){
-    let directionService = new google.maps.DirectionsService;
-    let directionDisplay = new google.maps.DirectionsRenderer;
-
-    let map = new google.maps.Map(this.mapElement.nativeElement, {
-      zoom: 15,
-      center: this.map.getCenter()
-    });
-
-    directionDisplay.setMap(map);
-    directionService.route({
-      origin: this.coords,
-      destination: this.location,
-      travelMode: 'DRIVING'
-    },(response, status) => {
-        if(status === 'OK'){
-          directionDisplay.setDirections(response);
-        } else {
-          alert('Directions Failed: ' + status)
-        }
-    })
-  }
-
-  //autocomplete
-  initAutoComplete(): void {
-    this.addressElement = document.getElementById('txtHome').getElementsByTagName('input')[0]
-    // this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-    this.createAutoComplete(this.addressElement).subscribe((location) => {
-      console.log('Searchdata', location);
-
-      let options = {
-        center: location,
-        zoom: 20,
-        disableDefaultUI: true,
-      };
-      this.map.setOptions(options);
-      //this.createMarkerL();
-      
-      //pass location to getDirection()
-      this.location = location;
-      this.getDirection(location);
-    });
-  }
-
-  createAutoComplete(addressEL: HTMLInputElement): Observable<any> {
-    const autocomplete = new google.maps.places.Autocomplete(addressEL);
-    autocomplete.bindTo('bounds', this.map);
-    return new Observable((sub: any) => {
-      google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry){
-          sub.error({
-            message: 'Autocomplete with no geometry'
-          });
-        } else {
-          console.log('Search Lat', place.geometry.location.lat());
-          console.log('Search Lng', place.geometry.location.lng());
-          sub.next(place.geometry.location);
-        }
-      });
-    });
-  }
-
-  mapsSearchBar(ev: any){
-    console.log(ev);
-    const autocomplete = new google.maps.places.Autocomplete(ev);
-    autocomplete.bindTo('bounds', this.map);
-    return new Observable((sub: any) => {
-      google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-          sub.error({
-            message: 'Autocomplete no geometry mapsearchbar'
-          });
-        } else {
-          sub.next(place.geometry.location);
-          sub.complete();
-        }
-      });
-    });
-  }
-
-  toggleSearch(){
-    if (this.search) {
-      this.search = false;
-    }else{
-      this.search = true;
-    }
-  }
+  // toggleSearch(){
+  //   if (this.search) {
+  //     this.search = false;
+  //   }else{
+  //     this.search = true;
+  //   }
+  // }
 
 }
