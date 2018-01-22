@@ -156,7 +156,12 @@ export class PoiPage {
     })
 
     this.getMidPoint();
-    // this.searchNearBy(location);
+    this.searchNearBy(this.newMidPoint).then(places => {
+      for(let place of places){
+        this.createMarker(place, this.map);
+      }
+    })
+
   }
   
   toRad (value: any){
@@ -199,11 +204,11 @@ this.distance = this.getDistanceBetweenPoints(this.coords, this.newMidPoint, "m"
 
 console.log('distance ' + this.distance);
 
-this.searchNearBy(this.newMidPoint).then(places => {
-  for(let place of places){
-    this.createMarker(place, this.map);
-  }
-})
+// this.searchNearBy(this.newMidPoint).then(places => {
+//   for(let place of places){
+//     this.createMarker(place, this.map);
+//   }
+// })
 
 }
 
@@ -273,13 +278,15 @@ this.searchNearBy(this.newMidPoint).then(places => {
     let placelocation = place.geometry.location;
     let marker = new google.maps.Marker ({
       map: map,
-      // animation: google.maps.Animation.DROP,
+      animation: google.maps.Animation.DROP,
       position: placelocation,
       icon: 'assets/imgs/marker02.png'
       //
     });
 
     console.log('marker jalan ' + placelocation);
+    console.log('lat 2 endpoint: ' + this.endpoint.lat);
+    console.log('lng 2 endpoint: ' + this.endpoint.lng);
 
     let infoWindow = new google.maps.InfoWindow();
     google.maps.event.addListener(marker, 'click', function() {
