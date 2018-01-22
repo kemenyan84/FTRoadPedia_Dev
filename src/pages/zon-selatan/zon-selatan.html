@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"  color="light"></ion-icon>
+    </button>
+    <ion-title>Galeri Foto Zon Selatan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngFor="let image of imageList"><img src="http://localhost/ftroadpedia/img/zonselatan/{{image}}"></div>
+
+  </ion-content>
+
+  <ion-footer>
+      <ion-navbar color="danger">
+        <ion-title align="center">Cipta Detik Indah Bersama</ion-title>
+      </ion-navbar>
+  </ion-footer>
