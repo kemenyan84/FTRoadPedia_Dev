@@ -3,10 +3,10 @@ import { NavController, NavParams, ModalController, LoadingController } from 'io
 import { WebserviceProvider } from '../../providers/webservice/webservice';
 
 @Component({
-  selector: 'page-list',
-  templateUrl: 'list.html'
+  selector: 'page-zonutara',
+  templateUrl: 'zonutara.html'
 })
-export class ListPage {
+export class ZonutaraPage {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -22,14 +22,14 @@ export class ListPage {
     ionViewDidLoad(){
       
       let loader = this.loadingCtrl.create({
-        content: "Tunggu Jap...",
+        content: "Loading",
         spinner: 'crescent',
       });
       loader.present();
       
-      this.webservice.getEmployee().then(response => {
+      this.webservice.getFtroadpedia().then(response => {
         console.log(response);
-        this.imageList = response.person;
+        this.imageList = response;
         loader.dismiss();
       }).catch(error => {
         loader.dismiss();
@@ -38,7 +38,7 @@ export class ListPage {
     }
 
     doRefresh(refresher){
-      this.webservice.getEmployee().then(response => {
+      this.webservice.getFtroadpedia().then(response => {
         console.log(response);
         this.imageList = response.person;
         refresher.complete();
@@ -47,35 +47,4 @@ export class ListPage {
         alert('error: ' + error);
       });
     }
-
-  //   this.selectedItem = navParams.get('item');
-  //   this.imageList = [
-  //   {url:'assets/imgs/1.jpg'},
-  //   {url:'assets/imgs/2.jpg'},
-  //   {url:'assets/imgs/3.jpg'},
-  //   {url:'assets/imgs/4.jpg'},
-  //   {url:'assets/imgs/5.jpg'},
-  //   {url:'assets/imgs/6.jpg'}
-  //   ]
-
-  //   // Let's populate this page with some filler content for funzies
-  //   this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-  //   'american-football', 'boat', 'bluetooth', 'build'];
-
-  //   this.items = [];
-  //   for (let i = 1; i < 11; i++) {
-  //     this.items.push({
-  //       title: 'Item ' + i,
-  //       note: 'This is item #' + i,
-  //       icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-  //     });
-  //   }
-  // }
-
-  // itemTapped(event, item) {
-  //   // That's right, we're pushing to ourselves!
-  //   this.navCtrl.push(ListPage, {
-  //     item: item
-  //   });
-  // }
 }

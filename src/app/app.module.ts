@@ -2,10 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ZonutaraPage } from '../pages/zonutara/zonutara';
 import { PoiPage } from '../pages/poi/poi';
 import { AboutPage } from '../pages/about/about';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -17,19 +18,21 @@ import { WebserviceProvider } from '../providers/webservice/webservice';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    ZonutaraPage,
     PoiPage,
     AboutPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
+    ZonutaraPage,
     PoiPage,
     AboutPage
   ],

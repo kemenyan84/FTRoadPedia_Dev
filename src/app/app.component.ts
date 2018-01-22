@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ZonutaraPage } from '../pages/zonutara/zonutara';
 import { PoiPage } from '../pages/poi/poi';
 import { AboutPage } from '../pages/about/about';
 
@@ -19,8 +19,10 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
+  showLevel1 = null;
 
   pages: Array<{title: string, component: any, icon: string}>;
+  pages2: any;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public iab: InAppBrowser) {
     this.initializeApp();
@@ -29,9 +31,12 @@ export class MyApp {
     this.pages = [
       { title: 'Laman Utama', component: HomePage, icon: 'home' },
       { title: 'POI', component: PoiPage, icon: 'pin' },
-      { title: 'Galeri', component: ListPage, icon: 'images' },
-      // { title: 'About', component: AboutPage, icon: 'images'}
     ];
+
+    this.pages2 = [
+      { title: 'Galeri', subs: [{subs:'Zon Utara', component: ZonutaraPage}], icon: 'images'}
+    ];
+
 
   }
 
@@ -56,13 +61,22 @@ export class MyApp {
     zoom: 'no'
   }
   const browser = this.iab.create('https://m.facebook.com/FTRoadpedia/', '_self', options);
-}
-
-  openMengenaiPage(){
-    this.nav.setRoot(ListPage);
   }
 
   openAboutPage(){
-    this.nav.setRoot(AboutPage)
+    this.nav.setRoot(AboutPage);
   }
+
+
+toggleLevel1(idx) {
+  if (this.isLevel1Shown(idx)) {
+    this.showLevel1 = null;
+  } else {
+    this.showLevel1 = idx;
+  }
+  };
+
+isLevel1Shown(idx) {
+  return this.showLevel1 === idx;
+  };
 }

@@ -7,10 +7,21 @@
 
   <ion-content>
     <ion-list>
-      <button icon-left menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button icon-left ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
+      <ion-item  icon-left *ngFor="let p2 of pages2; let i=index" 
+      text-wrap (click)="toggleLevel1('idx'+i)" [ngClass]="{active: isLevel1Shown('idx'+i)}"><ion-icon [name]="p2.icon"></ion-icon>
+        {{p2.title}}
+        <!-- <ion-icon color="success" item-right [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon> -->
+        <ion-list *ngIf="isLevel1Shown('idx'+i)">
+          <button icon-left ion-item menuClose *ngFor="let s of p2.subs; let i2=index" 
+          text-wrap (click)="openPage(s)" >
+            {{s.subs}}
+        </button>
+        </ion-list>
+      </ion-item>
       <button icon-left menuClose ion-item (click)="openFB()">
       <ion-icon name="logo-facebook"></ion-icon>Facebook FTRoadpedia
       </button>

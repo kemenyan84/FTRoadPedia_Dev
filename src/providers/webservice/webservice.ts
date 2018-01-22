@@ -21,7 +21,7 @@ export class WebserviceProvider {
     console.log('Hello WebserviceProvider Provider');
   }
 
-  getEmployee(): Promise<any>{
+  getFtroadpedia(): Promise<any>{
     let header = new Headers({
       'Content-Type':'text/plain'
     })
@@ -39,22 +39,4 @@ export class WebserviceProvider {
         {reject(error);} 
     });
   }
-
-  saveEmployee(employee: any): Promise<any>{
-    let body = JSON.stringify(employee);
-    let header = new HttpHeaders().set('Content-Type', 'application/json');
-    let URL = this.baseURL + '/createprofile.php';
-console.log(body)
-    return new Promise((resolve, reject) => {
-      this.http2.post(URL, body, {
-        headers: header
-      })
-      .subscribe(res => {
-        resolve(res);
-      }, (err) => {
-        reject(err);
-      });
-    });
-  }
-
 }
