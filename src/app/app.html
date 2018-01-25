@@ -1,11 +1,14 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-header class="header-background-image">
+    <div class="header-background-image">
+        <ion-thumbnail>
+            <img src="../assets/imgs/ftrp_logo_small.jpg"> 
+        </ion-thumbnail>
+    <h2 text-center>Main Menu</h2>
+    </div>    
+</ion-header>
 
-  <ion-content>
+  <ion-content class="menu">
     <ion-list>
       <button icon-left ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>

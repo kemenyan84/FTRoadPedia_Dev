@@ -86,8 +86,8 @@ export class PoiPage {
         } else {
           console.log('Search Lat', place.geometry.location.lat());
           console.log('Search Lng', place.geometry.location.lng());
-          this.endpoint = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()};
-          sub.next(place.geometry.location);
+        this.endpoint = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()};
+        sub.next(place.geometry.location);
         }
       });
     });
@@ -156,13 +156,7 @@ export class PoiPage {
     })
 
     this.getMidPoint();
-    this.searchNearBy(this.newMidPoint).then(places => {
-      for(let place of places){
-        this.createMarker(place, this.map);
-      }
-    })
-
-  }
+   }
   
   toRad (value: any){
     return value * (Math.PI / 180);
@@ -204,11 +198,11 @@ this.distance = this.getDistanceBetweenPoints(this.coords, this.newMidPoint, "m"
 
 console.log('distance ' + this.distance);
 
-// this.searchNearBy(this.newMidPoint).then(places => {
-//   for(let place of places){
-//     this.createMarker(place, this.map);
-//   }
-// })
+this.searchNearBy(this.newMidPoint).then(places => {
+  for(let place of places){
+    this.createMarker(place, this.map);
+  }
+})
 
 }
 
@@ -285,8 +279,8 @@ console.log('distance ' + this.distance);
     });
 
     console.log('marker jalan ' + placelocation);
-    console.log('lat 2 endpoint: ' + this.endpoint.lat);
-    console.log('lng 2 endpoint: ' + this.endpoint.lng);
+    // console.log('lat 2 endpoint: ' + this.endpoint.lat);
+    // console.log('lng 2 endpoint: ' + this.endpoint.lng);
 
     let infoWindow = new google.maps.InfoWindow();
     google.maps.event.addListener(marker, 'click', function() {

@@ -17,26 +17,64 @@
 
 // $SIDEMENU_TOP: #0c57f7;
 // $SIDEMENU_BOTTOM: #fdfdfc;
-$SIDEMENU_TOP: #5a96c4;
-$SIDEMENU_BOTTOM: #9db0be;
-// $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
+$SIDEMENU_TOP: #00bacf; 
+$SIDEMENU_BOTTOM: #2f2f2d; 
+// // $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 
 .toolbar-background-md {
-    // background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    // background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    // background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: linear-gradient($SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    // background-repeat: repeat-x;
+//     // background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+//     // background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+//     // background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient($SIDEMENU_TOP, $SIDEMENU_BOTTOM); 
+//     // background-repeat: repeat-x;
 }
 
 .toolbar-background-ios{
-//     background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-//     background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-//     background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: linear-gradient($SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-//     background-repeat: repeat-x;
+// //     background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+// //     background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+// //     background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient($SIDEMENU_TOP, $SIDEMENU_BOTTOM); 
+// //     background-repeat: repeat-x;
 }
 
 .toolbar-title{
     color: #ffffff; 
+}
+
+.header-background-image {
+    background-image: url('../assets/imgs/header/menu_header.jpg');
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+ion-thumbnail {
+    padding-top: 40px;
+
+    img {
+        margin: 0 auto;
+        position: relative;
+        z-index: 9;
+        max-width: 260px
+    }
+}
+
+.main-menu{
+    background-color: #413e3e;
+    color: #ffffff;
+}
+
+.menu{
+    background-color: #5f5d5d;
+}
+
+h2{
+    color: #ffffff;
+}
+
+.page-background {
+    background-image: url('../assets/imgs/page.jpg');
+    // height: 100%;
+    background-size: cover;
+    background-position: center;
 }

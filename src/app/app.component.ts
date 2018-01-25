@@ -31,7 +31,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Laman Utama', component: PoiPage, icon: 'home'},
-      { title: 'Mengenai FTRoadPedia', component: AboutPage, icon: 'information-circle'},
+      { title: 'Mengenai FTRoadPedia', component: AboutPage, icon: 'globe'},
     ];
 
     this.pages2 = [

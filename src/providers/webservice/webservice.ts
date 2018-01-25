@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpRequest } from '@angular/common/http/src/request';
+// import { HttpRequest } from '@angular/common/http/src/request';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Header } from 'ionic-angular/components/toolbar/toolbar-header';
 import 'rxjs/Rx';
@@ -15,7 +15,7 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class WebserviceProvider {
 
-  baseURL: string = "http://localhost/ftroadpedia/ftgaleri.php"
+  baseURL: string = "http://localhost/ftroadpedia/"
 
   constructor(public http: Http, public http2: HttpClient) {
     console.log('Hello WebserviceProvider Provider');
@@ -27,7 +27,7 @@ export class WebserviceProvider {
     })
 
     let options = new RequestOptions({headers: header});
-    let fullURL = this.baseURL + '/output.php';
+    let fullURL = this.baseURL + '/ftgaleri.php';
 
     return new Promise((resolve, reject) => {
       this.http.get(fullURL, options)
